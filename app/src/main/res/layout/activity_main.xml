@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:textAlignment="center"
+            android:textSize="36dp"
+            android:text="Choose your Level!" />
+
+        <Button
+            android:id="@+id/easyFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Easy"
+            android:layout_margin="30dp"
+            android:padding="20dp"
+            android:textSize="24dp"
+            android:onClick="this"
+            tools:ignore="onClick"
+            />
+
+        <Button
+            android:id="@+id/mediumFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Medium"
+            android:layout_margin="30dp"
+            android:padding="20dp"
+            android:textSize="24dp"
+            android:onClick="this"
+            tools:ignore="onClick"/>
+
+        <Button
+            android:id="@+id/hardFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hard"
+            android:layout_margin="30dp"
+            android:padding="20dp"
+            android:textSize="24dp"
+            android:onClick="this"
+            tools:ignore="onClick"/>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
