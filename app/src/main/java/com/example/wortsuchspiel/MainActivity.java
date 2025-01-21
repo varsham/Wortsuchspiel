@@ -8,14 +8,13 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.wortsuchspiel.fragments.GameFragment;
+import com.example.wortsuchspiel.fragments.EasyFragment;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button easyFragment, mediumFragment, hardFragment;
     int[] fragmentIDs = {R.id.easyFragment, R.id.mediumFragment, R.id.hardFragment};
-    Bundle bundle;
     TextView textView;
 
     String getLevel;
@@ -32,8 +31,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Button button = findViewById(element);
             button.setOnClickListener(this);
         }
-
-        // helloText = findViewById(R.id.helloText);
     }
 
     @Override
@@ -41,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         Button button = findViewById(id);
         getLevel = button.getText().toString();
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new GameFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new EasyFragment()).commit();
 
         // textView.setText(getLevel);
         textView.setVisibility(View.GONE);

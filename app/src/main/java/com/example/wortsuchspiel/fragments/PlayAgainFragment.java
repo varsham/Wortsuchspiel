@@ -14,11 +14,6 @@ import android.widget.Button;
 import com.example.wortsuchspiel.MainActivity;
 import com.example.wortsuchspiel.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PlayAgainFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PlayAgainFragment extends Fragment {
 
     Button playAgain;
@@ -28,16 +23,7 @@ public class PlayAgainFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PlayAgainFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PlayAgainFragment newInstance(String param1, String param2) {
+    public static PlayAgainFragment newInstance() {
         PlayAgainFragment fragment = new PlayAgainFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -80,7 +66,7 @@ public class PlayAgainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // switch back to the game fragment
-                getParentFragmentManager().beginTransaction().replace(R.id.container, new GameFragment()).commit();
+                getParentFragmentManager().beginTransaction().replace(R.id.container, new EasyFragment()).commit();
             }
         });
 
@@ -95,8 +81,7 @@ public class PlayAgainFragment extends Fragment {
         });
     }
 
-
-        @Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment

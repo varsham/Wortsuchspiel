@@ -13,6 +13,15 @@
         android:orientation="vertical"
         android:gravity="center">
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="24dp"
+            android:layout_margin="20dp"
+            android:text="Congrats, you finished the game!" />
+
         <Button
             android:id="@+id/playAgain"
             android:layout_width="match_parent"

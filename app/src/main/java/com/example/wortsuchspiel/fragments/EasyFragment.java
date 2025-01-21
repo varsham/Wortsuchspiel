@@ -23,14 +23,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link GameFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class GameFragment extends Fragment {
+public class EasyFragment extends Fragment {
 
-    TextView helloText;
     Button[] buttonList = new Button[16];
     String selectedButtonColor = "#6b9ac8";
     String selectedTextColor = "#042e58";
@@ -40,7 +34,9 @@ public class GameFragment extends Fragment {
     String playTextColor = backgroundColor;
     int textSize = 25;
     String textColor  = "";
-    String[] wordList = {"NAME", "MUND"};
+
+    ArrayList<String> wordList = new ArrayList<>();
+    // String[] wordList = {"NAME", "MUND", "HALLO", "ICHI"};
     Button submitButton;
     TextView initialText, scoreBoard;
     int numGames = 1;
@@ -51,27 +47,55 @@ public class GameFragment extends Fragment {
     private Context context;
     private MainActivity mActivity;
 
-    public GameFragment() {
+    int lettersUpperBound = 14;
+    int numWords = 4;
+
+    boolean shiftWords = true;
+
+    public EasyFragment() {
 
     }
 
-    // TODO: Rename and change types and number of parameters
-    public static GameFragment newInstance() {
-        GameFragment fragment = new GameFragment();
+    public static EasyFragment newInstance() {
+        EasyFragment fragment = new EasyFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        super.onCreate(savedInstanceState);
+
+        // initialize the elements
+        initialText = view.findViewById(R.id.initialText);
+        scoreBoard = view.findViewById(R.id.scoreBoard);
+        submitButton = view.findViewById(R.id.submitButton);
+
+        // tells the level
+        String s = ((MainActivity) getActivity()).getLevel();
+
+        if (s.equals("Easy")) easyLevel();
+        else if (s.equals("Medium")) mediumLevel();
+
+        int wordLengthCount = chooseWords();
+        while (wordLengthCount > lettersUpperBound) {
+            wordLengthCount = chooseWords();
+        }
+
+        completeReset(view);
+        onClickSubmitButton();
+    }
+
     public int chooseWords() {
-        // String bigString = "BALL TOUR TEAM TORE FELD RENN GOLF KICK LAUF ZIEL PUCK HOCH BOCK RUGY JUDO KORB BOXE RUDY SKAT KAMP MANN SPIEL WURF ZWEI SPORT HOKE LAUF TANZ SKI REN ZELT BOGE KORB KANU TAUE FANG ZIEL BAHN RUG KLET HAND BERT BOCK HOCS KICK LUEF TANZ BALL KORB BAHN SKI SPORT TORE ZIEL HÄNDE SPRUN KICK RENNE RUGY SCHW HOPP SPIR TAU SURFE KANU FANG HOCH LAUF BAHN";
-        String bigString = "ABEND ABWEG ACHSEL ADELIG ANGELE ARBEIT ABRUF BÄRTE BÄNDE BILDER BINDER BLUMEN BREITE BRÜCHE BRÜDER DRUCKE FALTEN GEBÄUDE GEHEGE GEBETE GEMEDE GESETZ HÄNDER HOFFE HÜNDIN KINDER KONTEN KURVEN LÄNDER MÄNGEL MÄRZEN MAHLEN PFLANZ SÄCKEN SICHER SCHRIFT SCHLUSS SCHNITZ SONDER SÜSSE TÄGLICH TEILER WÄHLEN WENDEN WORTE ZÄHLEN ZÜHLER";
+        String bigString = "SURF SIEG TOR TOUR TEAM TORE FELD RENN GOLF LAUF ZIEL PUCK JUDO BOXE RUDY SKAT KAMP MANN WURF ZWEI HOKE REN ZELT BOGE KORB TAUE KLET HAND BERT BOCK HOCS KICK LUEF TANZ BALL SKI RUGY HOPP SPIR TAU KANU FANG HOCH BAHN";
         String[] bigWordList = bigString.split(" ");
 
         int wordLengthCount = 0;
         int randomIndex = new Random().nextInt(bigWordList.length);
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < numWords; i++) {
             String currWord = bigWordList[randomIndex];
             while (arrayContains(currWord)) {
                 randomIndex = new Random().nextInt(bigWordList.length);
@@ -80,7 +104,7 @@ public class GameFragment extends Fragment {
 
             wordLengthCount += currWord.length();
 
-            wordList[i] = currWord;
+            wordList.add(currWord);
         }
 
         return wordLengthCount;
@@ -95,7 +119,7 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_game, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_easy, container, false);
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -129,29 +153,7 @@ public class GameFragment extends Fragment {
         super.onDestroy();
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        // helloText = view.findViewById(R.id.helloText);
 
-        // tells the level
-        String s = ((MainActivity) getActivity()).getLevel();
-        int wordLengthCount = chooseWords();
-        while (wordLengthCount > 16) {
-            wordLengthCount = chooseWords();
-        }
-
-
-        super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_main);
-
-        initialText = view.findViewById(R.id.initialText);
-        scoreBoard = view.findViewById(R.id.scoreBoard);
-        submitButton = view.findViewById(R.id.submitButton);
-
-        completeReset(view);
-        onClickSubmitButton();
-    }
 
     public void updateScoreBoard() {
         String scoreString = "Points: " + numPoints;
@@ -180,8 +182,8 @@ public class GameFragment extends Fragment {
 
         initialText.setTextSize(16);
         initialText.setText("Words to Find: \n");
-        for (int k = 0; k < wordList.length; k++) {
-            initialText.append("\n" + wordList[k]);
+        for (int k = 0; k < wordList.size(); k++) {
+            initialText.append("\n" + wordList.get(k));
         }
         initialText.append("\n");
 
@@ -210,6 +212,7 @@ public class GameFragment extends Fragment {
         }
 
         buttonList = assignButtonLetters();
+
     }
 
     public void playAgain() {
@@ -230,9 +233,10 @@ public class GameFragment extends Fragment {
                 } else if (listContains(selectedString)) Toast.makeText(view.getContext(), "You've already found the word " + selectedString + "!", Toast.LENGTH_SHORT).show();
                 else Toast.makeText(view.getContext(), "Sorry, " + selectedString + " isn't correct.", Toast.LENGTH_SHORT).show();
                 selected.clear();
+                // resets the button colors
                 buttonList = resetButtons();
 
-                if (foundWords.size() == wordList.length) congratsMessage(selectedString, true);
+                if (foundWords.size() == wordList.size()) congratsMessage(selectedString, true);
             }
         });
     }
@@ -256,7 +260,8 @@ public class GameFragment extends Fragment {
         updateScoreboard();
         if (!complete) {
             initialText.append("\nCongrats, you found: " + selectedString + ". 20 points gained!");
-            buttonList = assignButtonLetters();
+            if (shiftWords) buttonList = assignButtonLetters();
+
         } else {
             initialText.setTextSize(24);
             initialText.setText("Congrats, you found all the words!");
@@ -264,19 +269,14 @@ public class GameFragment extends Fragment {
 
             playAgain();
         }
-
-
     }
 
     public Button[] assignButtonLetters() {
-        // String wordString = join(wordList, "");
-        // create a new letter string that contains all the letters just once
-
         ArrayList<String> letterList = new ArrayList<String>();
-        letterList.add(wordList[0]);
-        for (int k = 1; k < wordList.length; k++) {
-            if (!letterList.contains(wordList[k])) {
-                letterList.add(wordList[k]);
+        letterList.add(wordList.get(0));
+        for (int k = 1; k < wordList.size(); k++) {
+            if (!letterList.contains(wordList.get(k))) {
+                letterList.add(wordList.get(k));
             }
         }
 
@@ -358,4 +358,27 @@ public class GameFragment extends Fragment {
         }
         return false;
     }
+
+    public void easyLevel() {
+        // the user needs to find 4 words
+        numWords = 3;
+
+        // the max number of letters is 13
+        lettersUpperBound = 14;
+
+        // the words do switch around
+        shiftWords = false;
+    }
+
+    public void mediumLevel() {
+        // the user needs to find 4 words
+        numWords = 4;
+
+        // the max number of letters is 13
+        lettersUpperBound = 14;
+
+        // the words do switch around
+        shiftWords = true;
+    }
+
 }

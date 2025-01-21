@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Wortsuchspiel</string>
     <string name="easy_sport_words">BALL TOUR TEAM TORE FELD RENN GOLF KICK LAUF ZIEL PUCK HOCH BOCK RUGY JUDO KORB BOXE RUDY SKAT KAMP MANN SPIEL WURF ZWEI SPORT HOKE LAUF TANZ SKI REN ZELT BOGE KORB KANU TAUE FANG ZIEL BAHN RUG KLET HAND BERT BOCK HOCS KICK LUEF TANZ BALL KORB BAHN SKI SPORT TORE ZIEL HÄNDE SPRUN KICK RENNE RUGY SCHW HOPP SPIR TAU SURFE KANU FANG HOCH LAUF BAHN</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
