@@ -9,6 +9,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.wortsuchspiel.fragments.EasyFragment;
+import com.example.wortsuchspiel.fragments.HardFragment;
 import com.example.wortsuchspiel.fragments.MediumFragment;
 
 
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getLevel = button.getText().toString();
         if (getLevel.equals("Easy")) getSupportFragmentManager().beginTransaction().replace(R.id.container, new EasyFragment()).commit();
         else if (getLevel.equals("Medium")) getSupportFragmentManager().beginTransaction().replace(R.id.container, new MediumFragment()).commit();
+        else if (getLevel.equals("Hard")) getSupportFragmentManager().beginTransaction().replace(R.id.container, new HardFragment()).commit();
+
 
         // textView.setText(getLevel);
         textView.setVisibility(View.GONE);

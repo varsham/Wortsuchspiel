@@ -80,9 +80,6 @@ public class HardFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         super.onCreate(savedInstanceState);
 
-        wordList.add("HELLO");
-        wordList.add("BALL");
-
         // initialize the elements
         initialTexthard = view.findViewById(R.id.initialTexthard);
         scoreBoardhard = view.findViewById(R.id.scoreBoardhard);
@@ -95,14 +92,14 @@ public class HardFragment extends Fragment {
         lettersUpperBound = 22;
 
         // the words do switch around
-        shiftWords = false;
+        shiftWords = true;
 
-        // int wordLengthCount = chooseWords();
-        // while (wordLengthCount > lettersUpperBound)
-            // wordLengthCount = chooseWords();
+        int wordLengthCount = chooseWords();
+        while (wordLengthCount > lettersUpperBound)
+            wordLengthCount = chooseWords();
 
         completeReset(view);
-        // onClickSubmitButton();
+        onClickSubmitButton();
 
     }
 
@@ -179,8 +176,8 @@ public class HardFragment extends Fragment {
     }
 
     public void completeReset(View view) {
-        // updateScoreBoard();
-        // updateColors();
+        updateScoreBoard();
+        updateColors();
 
         initialTexthard.setTextSize(26);
         initialTexthard.setText("Words to Find: \n");
@@ -213,14 +210,8 @@ public class HardFragment extends Fragment {
             count++;
         }
 
-        // buttonList = assignButtonLetters();
-        assignLetters();
+        buttonList = assignButtonLetters();
 
-    }
-
-    public void assignLetters() {
-        buttonList[0].setText("H");
-        buttonList[1].setText("E");
     }
 
     public void playAgain() {
