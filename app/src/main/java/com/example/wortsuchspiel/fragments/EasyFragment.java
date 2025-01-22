@@ -70,8 +70,8 @@ public class EasyFragment extends Fragment {
 
         // initialize the elements
         initialText = view.findViewById(R.id.initialText);
-        scoreBoard = view.findViewById(R.id.scoreBoard);
-        submitButton = view.findViewById(R.id.submitButton);
+        scoreBoard = view.findViewById(R.id.scoreBoardmed);
+        submitButton = view.findViewById(R.id.submitButtonmed);
 
         // tells the level
         String s = ((MainActivity) getActivity()).getLevel();
@@ -180,7 +180,7 @@ public class EasyFragment extends Fragment {
         updateScoreBoard();
         updateColors();
 
-        initialText.setTextSize(16);
+        initialText.setTextSize(26);
         initialText.setText("Words to Find: \n");
         for (int k = 0; k < wordList.size(); k++) {
             initialText.append("\n" + wordList.get(k));
@@ -228,8 +228,8 @@ public class EasyFragment extends Fragment {
                 if (selected.size() == 0) Toast.makeText(view.getContext(), "You've selected nothing!" , Toast.LENGTH_SHORT).show();
                 else if (arrayContains(selectedString) && !listContains(selectedString)) {
                     Toast.makeText(view.getContext(), "Congrats, you found " + selectedString + "! 20 points!", Toast.LENGTH_SHORT).show();
-                    congratsMessage(selectedString, false);
                     foundWords.add(selectedString);
+                    congratsMessage(selectedString, false);
                 } else if (listContains(selectedString)) Toast.makeText(view.getContext(), "You've already found the word " + selectedString + "!", Toast.LENGTH_SHORT).show();
                 else Toast.makeText(view.getContext(), "Sorry, " + selectedString + " isn't correct.", Toast.LENGTH_SHORT).show();
                 selected.clear();
@@ -259,12 +259,17 @@ public class EasyFragment extends Fragment {
         numPoints += 20;
         updateScoreboard();
         if (!complete) {
-            initialText.append("\nCongrats, you found: " + selectedString + ". 20 points gained!");
+            // set text to the words that weren't found yet
+            String notFound = "";
+            for (String s : wordList) {
+                if (!listContains(s)) notFound += "\n" + s;
+            }
+            // initialText.setText("\nCongrats, you found: " + selectedString + ". 20 points gained!");
+            initialText.setText("Words to Find: \n" + notFound);
             if (shiftWords) buttonList = assignButtonLetters();
 
         } else {
-            initialText.setTextSize(24);
-            initialText.setText("Congrats, you found all the words!");
+            initialText.setTextSize(26);
             numGames += 1;
 
             playAgain();

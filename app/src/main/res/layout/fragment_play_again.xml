@@ -20,7 +20,7 @@
             android:textAlignment="center"
             android:textSize="24dp"
             android:layout_margin="20dp"
-            android:text="Congrats, you finished the game!" />
+            android:text="Congrats, you found all the words!"/>
 
         <Button
             android:id="@+id/playAgain"

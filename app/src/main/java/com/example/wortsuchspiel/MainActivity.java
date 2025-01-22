@@ -13,7 +13,6 @@ import com.example.wortsuchspiel.fragments.EasyFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button easyFragment, mediumFragment, hardFragment;
     int[] fragmentIDs = {R.id.easyFragment, R.id.mediumFragment, R.id.hardFragment};
     TextView textView;
 
@@ -38,7 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         Button button = findViewById(id);
         getLevel = button.getText().toString();
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new EasyFragment()).commit();
+        if (getLevel.equals("Easy")) getSupportFragmentManager().beginTransaction().replace(R.id.container, new EasyFragment()).commit();
+        // else if (getLevel.equals("Medium")) getSupportFragmentManager().beginTransaction().replace(R.id.container, new MediumFragment()).commit();
 
         // textView.setText(getLevel);
         textView.setVisibility(View.GONE);
