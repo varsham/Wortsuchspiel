@@ -23,75 +23,87 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class EasyFragment extends Fragment {
 
-    Button[] buttonList = new Button[16];
+public class HardFragment extends Fragment {
+
+
+    Button[] buttonList = new Button[25];
     String selectedButtonColor = "#6b9ac8";
     String selectedTextColor = "#042e58";
     String backgroundColor = "#dae9f8";
     String buttonColor = "#bad4ef";
     String playBackgroundColor = "#593e8d";
     String playTextColor = backgroundColor;
-    int textSize = 25;
+    int textSize = 20;
     String textColor  = "";
 
     ArrayList<String> wordList = new ArrayList<>();
     // String[] wordList = {"NAME", "MUND", "HALLO", "ICHI"};
-    Button submitButton;
-    TextView initialText, scoreBoard;
+    Button submitButtonhard;
+    TextView initialTexthard, scoreBoardhard;
     int numGames = 1;
     int numPoints = 0;
     ArrayList<Button> selected = new ArrayList<>();
-    int[] buttonIDs = {R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7, R.id.button8, R.id.button9, R.id.button10, R.id.button11, R.id.button12, R.id.button13, R.id.button14, R.id.button15, R.id.button16};
+    int[] buttonIDs = {R.id.button1_1, R.id.button1_2, R.id.button1_3, R.id.button1_4, R.id.button1_5, R.id.button1_6, R.id.button1_7, R.id.button1_8, R.id.button1_9, R.id.button1_10, R.id.button1_11, R.id.button1_12, R.id.button1_13, R.id.button1_14, R.id.button1_15, R.id.button1_16, R.id.button1_17, R.id.button1_18, R.id.button1_19, R.id.button1_20, R.id.button1_21, R.id.button1_22, R.id.button1_23, R.id.button1_24, R.id.button1_25};
     ArrayList<String> foundWords = new ArrayList<>();
     private Context context;
     private MainActivity mActivity;
 
-    int lettersUpperBound = 14;
-    int numWords = 4;
-
+    int lettersUpperBound;
+    int numWords;
     boolean shiftWords = true;
 
-    public EasyFragment() {
-
+    public HardFragment() {
+        // Required empty public constructor
     }
 
-    public static EasyFragment newInstance() {
-        EasyFragment fragment = new EasyFragment();
+    public static HardFragment newInstance() {
+        HardFragment fragment = new HardFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_hard, container, false);
+    }
+
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         super.onCreate(savedInstanceState);
 
-        // initialize the elements
-        initialText = view.findViewById(R.id.initialTextEasy);
-        scoreBoard = view.findViewById(R.id.scoreBoardEasy);
-        submitButton = view.findViewById(R.id.submitButtonEasy);
+        wordList.add("HELLO");
+        wordList.add("BALL");
 
-        // tells the level
-        // String s = ((MainActivity) getActivity()).getLevel();
+        // initialize the elements
+        initialTexthard = view.findViewById(R.id.initialTexthard);
+        scoreBoardhard = view.findViewById(R.id.scoreBoardhard);
+        submitButtonhard = view.findViewById(R.id.submitButtonhard);
 
         // the user needs to find 4 words
-        numWords = 3;
+        numWords = 4;
 
         // the max number of letters is 13
-        lettersUpperBound = 14;
+        lettersUpperBound = 22;
 
         // the words do switch around
         shiftWords = false;
 
-        int wordLengthCount = chooseWords();
-        while (wordLengthCount > lettersUpperBound) {
-            wordLengthCount = chooseWords();
-        }
+        // int wordLengthCount = chooseWords();
+        // while (wordLengthCount > lettersUpperBound)
+            // wordLengthCount = chooseWords();
 
         completeReset(view);
-        onClickSubmitButton();
+        // onClickSubmitButton();
+
     }
 
     public int chooseWords() {
@@ -114,20 +126,6 @@ public class EasyFragment extends Fragment {
         }
 
         return wordLengthCount;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View rootView = inflater.inflate(R.layout.fragment_easy, container, false);
-        // Inflate the layout for this fragment
-        return rootView;
     }
 
     @Override
@@ -159,11 +157,9 @@ public class EasyFragment extends Fragment {
         super.onDestroy();
     }
 
-
-
     public void updateScoreBoard() {
         String scoreString = "Points: " + numPoints;
-        scoreBoard.setText(scoreString);
+        scoreBoardhard.setText(scoreString);
     }
 
     public void updateColors() {
@@ -176,27 +172,27 @@ public class EasyFragment extends Fragment {
         selectedButtonColor = cols[1]; // light blue
         textColor = cols[2];
         selectedTextColor = cols[3]; // navy blue
-        submitButton.setTextColor(Color.parseColor(cols[4]));
-        submitButton.setBackgroundColor(Color.parseColor(cols[5]));
-        scoreBoard.setTextColor(Color.parseColor(cols[6]));
-        scoreBoard.setBackgroundColor(Color.parseColor(cols[7]));
+        submitButtonhard.setTextColor(Color.parseColor(cols[4]));
+        submitButtonhard.setBackgroundColor(Color.parseColor(cols[5]));
+        scoreBoardhard.setTextColor(Color.parseColor(cols[6]));
+        scoreBoardhard.setBackgroundColor(Color.parseColor(cols[7]));
     }
 
     public void completeReset(View view) {
-        updateScoreBoard();
-        updateColors();
+        // updateScoreBoard();
+        // updateColors();
 
-        initialText.setTextSize(26);
-        initialText.setText("Words to Find: \n");
+        initialTexthard.setTextSize(26);
+        initialTexthard.setText("Words to Find: \n");
         for (int k = 0; k < wordList.size(); k++) {
-            initialText.append("\n" + wordList.get(k));
+            initialTexthard.append("\n" + wordList.get(k));
         }
-        initialText.append("\n");
+        initialTexthard.append("\n");
 
         foundWords.clear();
 
         int count = 0;
-        submitButton.setEnabled(true);
+        submitButtonhard.setEnabled(true);
         for (int buttonID : buttonIDs) {
             Button button = view.findViewById(buttonID);
             button.setEnabled(true);
@@ -217,8 +213,14 @@ public class EasyFragment extends Fragment {
             count++;
         }
 
-        buttonList = assignButtonLetters();
+        // buttonList = assignButtonLetters();
+        assignLetters();
 
+    }
+
+    public void assignLetters() {
+        buttonList[0].setText("H");
+        buttonList[1].setText("E");
     }
 
     public void playAgain() {
@@ -227,7 +229,7 @@ public class EasyFragment extends Fragment {
     }
 
     public void onClickSubmitButton() {
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        submitButtonhard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String selectedString = selectedToString();
@@ -258,7 +260,7 @@ public class EasyFragment extends Fragment {
 
     public void updateScoreboard() {
         String scoreString = "Points: " + numPoints;
-        scoreBoard.setText(scoreString);
+        scoreBoardhard.setText(scoreString);
     }
 
     public void congratsMessage(String selectedString, boolean complete) {
@@ -271,11 +273,11 @@ public class EasyFragment extends Fragment {
                 if (!listContains(s)) notFound += "\n" + s;
             }
             // initialText.setText("\nCongrats, you found: " + selectedString + ". 20 points gained!");
-            initialText.setText("Words to Find: \n" + notFound);
+            initialTexthard.setText("Words to Find: \n" + notFound);
             if (shiftWords) buttonList = assignButtonLetters();
 
         } else {
-            initialText.setTextSize(26);
+            initialTexthard.setTextSize(26);
             numGames += 1;
 
             playAgain();
@@ -369,16 +371,4 @@ public class EasyFragment extends Fragment {
         }
         return false;
     }
-
-    public void mediumLevel() {
-        // the user needs to find 4 words
-        numWords = 4;
-
-        // the max number of letters is 13
-        lettersUpperBound = 14;
-
-        // the words do switch around
-        shiftWords = true;
-    }
-
 }

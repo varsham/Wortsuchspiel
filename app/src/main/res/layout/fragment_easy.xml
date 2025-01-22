@@ -10,7 +10,7 @@
     android:background="@color/bluewhite">
 
     <TextView
-        android:id="@+id/initialText"
+        android:id="@+id/initialTextEasy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
@@ -20,7 +20,7 @@
         android:textAlignment="center"/>
 
     <TextView
-        android:id="@+id/scoreBoardmed"
+        android:id="@+id/scoreBoardEasy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/lavender"
@@ -210,7 +210,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/submitButtonmed"
+        android:id="@+id/submitButtonEasy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Submit"
