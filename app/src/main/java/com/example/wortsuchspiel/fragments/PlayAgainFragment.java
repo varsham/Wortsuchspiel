@@ -61,12 +61,17 @@ public class PlayAgainFragment extends Fragment {
         playAgain = view.findViewById(R.id.playAgain);
         mainMenu = view.findViewById(R.id.mainMenu);
 
+        String s = ((MainActivity) getActivity()).getLevel();
+
         // if playAgain is clicked:
         playAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // switch back to the game fragment
-                getParentFragmentManager().beginTransaction().replace(R.id.container, new EasyFragment()).commit();
+                if (s.equals("Easy")) getParentFragmentManager().beginTransaction().replace(R.id.container, new EasyFragment()).commit();
+                else if (s.equals("Medium")) getParentFragmentManager().beginTransaction().replace(R.id.container, new MediumFragment()).commit();
+                else if (s.equals("Hard")) getParentFragmentManager().beginTransaction().replace(R.id.container, new HardFragment()).commit();
+
             }
         });
 

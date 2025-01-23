@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/bluewhite">
 
 
     <LinearLayout
@@ -22,16 +23,19 @@
             android:layout_margin="20dp"
             android:textAlignment="center"
             android:textSize="36dp"
-            android:text="Choose your Level!" />
+            android:text="Choose your Level!"
+            android:textColor="@color/navy"/>
 
         <Button
             android:id="@+id/easyFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Easy"
+            android:textColor="@color/navy"
             android:layout_margin="30dp"
             android:padding="20dp"
             android:textSize="24dp"
+            android:backgroundTint="@color/lavender"
             android:onClick="this"
             tools:ignore="onClick"
             />
@@ -41,9 +45,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Medium"
+            android:textColor="@color/navy"
             android:layout_margin="30dp"
             android:padding="20dp"
             android:textSize="24dp"
+            android:backgroundTint="@color/lavender"
             android:onClick="this"
             tools:ignore="onClick"/>
 
@@ -52,9 +58,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hard"
+            android:textColor="@color/navy"
             android:layout_margin="30dp"
             android:padding="20dp"
             android:textSize="24dp"
+            android:backgroundTint="@color/lavender"
             android:onClick="this"
             tools:ignore="onClick"/>
 

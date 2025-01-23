@@ -37,8 +37,7 @@ public class EasyFragment extends Fragment {
 
     ArrayList<String> wordList = new ArrayList<>();
     // String[] wordList = {"NAME", "MUND", "HALLO", "ICHI"};
-    Button submitButton;
-    TextView initialText, scoreBoard;
+    TextView initialText, scoreBoard, showLetters;
     int numGames = 1;
     int numPoints = 0;
     ArrayList<Button> selected = new ArrayList<>();
@@ -71,10 +70,7 @@ public class EasyFragment extends Fragment {
         // initialize the elements
         initialText = view.findViewById(R.id.initialTextEasy);
         scoreBoard = view.findViewById(R.id.scoreBoardEasy);
-        submitButton = view.findViewById(R.id.submitButtonEasy);
-
-        // tells the level
-        // String s = ((MainActivity) getActivity()).getLevel();
+        showLetters = view.findViewById(R.id.showLetters);
 
         // the user needs to find 4 words
         numWords = 3;
@@ -91,11 +87,10 @@ public class EasyFragment extends Fragment {
         }
 
         completeReset(view);
-        onClickSubmitButton();
     }
 
     public int chooseWords() {
-        String bigString = "SURF SIEG TOR TOUR TEAM TORE FELD RENN GOLF LAUF ZIEL PUCK JUDO BOXE RUDY SKAT KAMP MANN WURF ZWEI HOKE REN ZELT BOGE KORB TAUE KLET HAND BERT BOCK HOCS KICK LUEF TANZ BALL SKI RUGY HOPP SPIR TAU KANU FANG HOCH BAHN";
+        String bigString = "SURF SIEG TOUR TEAM TORE FELD RENN GOLF LAUF ZIEL PUCK JUDO BOXE RUDY SKAT KAMP MANN WURF ZWEI HOKE REN ZELT BOGE KORB TAUE KLET HAND BERT BOCK HOCS KICK LUEF TANZ BALL SKI RUGY HOPP SPIR TAU KANU FANG HOCH BAHN";
         String[] bigWordList = bigString.split(" ");
 
         int wordLengthCount = 0;
@@ -159,8 +154,6 @@ public class EasyFragment extends Fragment {
         super.onDestroy();
     }
 
-
-
     public void updateScoreBoard() {
         String scoreString = "Points: " + numPoints;
         scoreBoard.setText(scoreString);
@@ -176,8 +169,6 @@ public class EasyFragment extends Fragment {
         selectedButtonColor = cols[1]; // light blue
         textColor = cols[2];
         selectedTextColor = cols[3]; // navy blue
-        submitButton.setTextColor(Color.parseColor(cols[4]));
-        submitButton.setBackgroundColor(Color.parseColor(cols[5]));
         scoreBoard.setTextColor(Color.parseColor(cols[6]));
         scoreBoard.setBackgroundColor(Color.parseColor(cols[7]));
     }
@@ -185,18 +176,18 @@ public class EasyFragment extends Fragment {
     public void completeReset(View view) {
         updateScoreBoard();
         updateColors();
+        showLetters.setText(fillInBlanks(""));
 
         initialText.setTextSize(26);
-        initialText.setText("Words to Find: \n");
+        initialText.setText("Wörter zu Finden: \n");
         for (int k = 0; k < wordList.size(); k++) {
             initialText.append("\n" + wordList.get(k));
         }
-        initialText.append("\n");
 
         foundWords.clear();
 
         int count = 0;
-        submitButton.setEnabled(true);
+
         for (int buttonID : buttonIDs) {
             Button button = view.findViewById(buttonID);
             button.setEnabled(true);
@@ -208,11 +199,21 @@ public class EasyFragment extends Fragment {
                     button.setBackgroundColor(Color.parseColor(buttonColor));
                     button.setTextColor(Color.parseColor(textColor));
                 } else {
-                    button.setBackgroundColor(Color.parseColor(selectedButtonColor));
-                    button.setTextColor(Color.parseColor(selectedTextColor));
-                    selected.add(button);
+                    if (selected.size() < 4) {
+                        selected.add(button);
+                        button.setBackgroundColor(Color.parseColor(selectedButtonColor));
+                        button.setTextColor(Color.parseColor(selectedTextColor));
+                    }
+                }
+
+                showLetters.setText(fillInBlanks(selectedToString()));
+
+
+                if (arrayContains(selectedToString()) && !listContains(selectedToString())) {
+                    confirmOrDenyWords();
                 }
             });
+
             buttonList[count] = button;
             count++;
         }
@@ -221,30 +222,31 @@ public class EasyFragment extends Fragment {
 
     }
 
+    public String fillInBlanks(String s) {
+        String returnString = s;
+        for (int i = 0; i < 4 - s.length(); i++) {
+            returnString += "_" + " ";
+        }
+        return returnString + "\n";
+    }
+
+    public void confirmOrDenyWords() {
+        String selectedString = selectedToString();
+        showLetters.setText("Super gemacht! Du hast " + selectedString + " gefunden!");
+        if (arrayContains(selectedString) && !listContains(selectedString)) {
+            foundWords.add(selectedString);
+            congratsMessage(selectedString, false);
+        }
+        selected.clear();
+        // resets the button colors
+        buttonList = resetButtons();
+
+        if (foundWords.size() == wordList.size()) congratsMessage(selectedString, true);
+    }
+
     public void playAgain() {
         // switch to the play again fragment
         getParentFragmentManager().beginTransaction().replace(R.id.container, new PlayAgainFragment()).commit();
-    }
-
-    public void onClickSubmitButton() {
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String selectedString = selectedToString();
-                if (selected.size() == 0) Toast.makeText(view.getContext(), "You've selected nothing!" , Toast.LENGTH_SHORT).show();
-                else if (arrayContains(selectedString) && !listContains(selectedString)) {
-                    Toast.makeText(view.getContext(), "Congrats, you found " + selectedString + "! 20 points!", Toast.LENGTH_SHORT).show();
-                    foundWords.add(selectedString);
-                    congratsMessage(selectedString, false);
-                } else if (listContains(selectedString)) Toast.makeText(view.getContext(), "You've already found the word " + selectedString + "!", Toast.LENGTH_SHORT).show();
-                else Toast.makeText(view.getContext(), "Sorry, " + selectedString + " isn't correct.", Toast.LENGTH_SHORT).show();
-                selected.clear();
-                // resets the button colors
-                buttonList = resetButtons();
-
-                if (foundWords.size() == wordList.size()) congratsMessage(selectedString, true);
-            }
-        });
     }
 
     public Button[] resetButtons() {
@@ -269,9 +271,10 @@ public class EasyFragment extends Fragment {
             String notFound = "";
             for (String s : wordList) {
                 if (!listContains(s)) notFound += "\n" + s;
+                else notFound += "\n";
             }
             // initialText.setText("\nCongrats, you found: " + selectedString + ". 20 points gained!");
-            initialText.setText("Words to Find: \n" + notFound);
+            initialText.setText("Wörter zu Finden: \n" + notFound);
             if (shiftWords) buttonList = assignButtonLetters();
 
         } else {
@@ -323,16 +326,6 @@ public class EasyFragment extends Fragment {
         return shuffledString.toString();
     }
 
-
-    public String join(String[] arr, String joinCharacter) {
-        String str = "";
-        for (int i = 0; i < arr.length; i++) {
-            str = str + arr[i] + joinCharacter;
-        }
-
-        return str;
-    }
-
     public String joinArrayList(ArrayList<String> arrList, String joinCharacter) {
         String str = "";
         for (int i = 0; i < arrList.size(); i++) {
@@ -368,17 +361,6 @@ public class EasyFragment extends Fragment {
             if (selectedString.equals(w)) return true;
         }
         return false;
-    }
-
-    public void mediumLevel() {
-        // the user needs to find 4 words
-        numWords = 4;
-
-        // the max number of letters is 13
-        lettersUpperBound = 14;
-
-        // the words do switch around
-        shiftWords = true;
     }
 
 }

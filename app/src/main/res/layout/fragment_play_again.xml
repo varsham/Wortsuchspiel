@@ -3,22 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.PlayAgainFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context=".fragments.PlayAgainFragment"
+    android:background="@color/bluewhite">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        >
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textSize="24dp"
+            android:textColor="@color/navy"
+            android:textSize="30dp"
             android:layout_margin="20dp"
             android:text="Congrats, you found all the words!"/>
 
@@ -26,17 +27,23 @@
             android:id="@+id/playAgain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Play Again?"
+            android:text="Play Again"
+            android:textColor="@color/navy"
             android:padding="20dp"
-            android:layout_margin="20dp"/>
+            android:textSize="25dp"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/lavender"/>
 
         <Button
             android:id="@+id/mainMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Return to Main Menu"
+            android:textColor="@color/navy"
             android:padding="20dp"
-            android:layout_margin="20dp"/>
+            android:textSize="25dp"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/lavender"/>
     </LinearLayout>
 
 </FrameLayout>

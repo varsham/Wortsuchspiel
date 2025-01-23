@@ -268,6 +268,7 @@ public class MediumFragment extends Fragment {
             String notFound = "";
             for (String s : wordList) {
                 if (!listContains(s)) notFound += "\n" + s;
+                else notFound += "\n";
             }
             // initialText.setText("\nCongrats, you found: " + selectedString + ". 20 points gained!");
             initialTextMed.setText("Words to Find: \n" + notFound);
