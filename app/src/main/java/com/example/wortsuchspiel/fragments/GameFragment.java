@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.wortsuchspiel.MainActivity;
 import com.example.wortsuchspiel.R;
@@ -30,19 +29,19 @@ public class GameFragment extends Fragment {
     Button[] buttonList;
     String selectedButtonColor = "#6b9ac8";
     String selectedTextColor = "#042e58";
-    String backgroundColor = "#dae9f8";
     String buttonColor = "#bad4ef";
-    String playBackgroundColor = "#593e8d";
-    String playTextColor = backgroundColor;
     int textSize = 20;
     String textColor  = "";
 
     String level;
 
+    int currPosInList = 0;
+
+    Button backButton, nextButton;
+
     ArrayList<String> wordList = new ArrayList<>();
     // String[] wordList = {"NAME", "MUND", "HALLO", "ICHI"};
-    Button submitButton;
-    TextView initialText, scoreBoard;
+    TextView initialText, scoreBoard, showLetters;
     int numGames = 1;
     int numPoints = 0;
     ArrayList<Button> selected = new ArrayList<>();
@@ -50,22 +49,15 @@ public class GameFragment extends Fragment {
     private Context context;
     private MainActivity mActivity;
 
-    int lettersUpperBound;
-    int numWords;
+    int lettersUpperBound, numWords;
     boolean shiftWords = true;
 
     int[] buttonIDsEasy = {R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5, R.id.button6, R.id.button7, R.id.button8, R.id.button9, R.id.button10, R.id.button11, R.id.button12, R.id.button13, R.id.button14, R.id.button15, R.id.button16};
     int[] buttonIDsMedAndHard = {R.id.button1_1, R.id.button1_2, R.id.button1_3, R.id.button1_4, R.id.button1_5, R.id.button1_6, R.id.button1_7, R.id.button1_8, R.id.button1_9, R.id.button1_10, R.id.button1_11, R.id.button1_12, R.id.button1_13, R.id.button1_14, R.id.button1_15, R.id.button1_16, R.id.button1_17, R.id.button1_18, R.id.button1_19, R.id.button1_20, R.id.button1_21, R.id.button1_22, R.id.button1_23, R.id.button1_24, R.id.button1_25};
 
-    public GameFragment() {
-        // Required empty public constructor
-    }
+    int[] buttonIDs;
 
-    public static GameFragment newInstance(String param1, String param2) {
-        GameFragment fragment = new GameFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+    public GameFragment() {
     }
 
     @Override
@@ -80,13 +72,6 @@ public class GameFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
 
-    public static GameFragment newInstance() {
-        GameFragment fragment = new GameFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -95,30 +80,73 @@ public class GameFragment extends Fragment {
         // initialize the elements
         initialText = view.findViewById(R.id.initialText);
         scoreBoard = view.findViewById(R.id.scoreBoard);
-        submitButton = view.findViewById(R.id.submitButton);
+        showLetters = view.findViewById(R.id.showLetters);
+        backButton = view.findViewById(R.id.backButton);
+        nextButton = view.findViewById(R.id.nextButton);
 
         // tells the level
-        String s = ((MainActivity) getActivity()).getLevel();
-        level = s;
+        level = ((MainActivity) getActivity()).getLevel();
         if (level.equals("Easy")) easyLevel();
         else if (level.equals("Medium")) mediumLevel();
         else hardLevel();
 
-        for (int buttonID : buttonIDsMedAndHard) {
-            Button b = view.findViewById(buttonID);
-            // b.setVisibility(View.GONE);
+
+        int wordLengthCount = chooseWords();
+        while (wordLengthCount > lettersUpperBound) {
+            wordLengthCount = chooseWords();
         }
 
-        // int wordLengthCount = chooseWords();
-        // while (wordLengthCount > lettersUpperBound) {
-            // wordLengthCount = chooseWords();
-        // }
-
-        wordList.add("HELLO");
-        wordList.add("BALL");
-
         completeReset(view);
-        onClickSubmitButton();
+        wordButtons();
+    }
+
+    public void completeReset(View view) {
+        updateScoreBoard();
+        updateColors();
+
+        initialText.setTextSize(26);
+        initialText.setText(wordList.get(currPosInList));
+
+        foundWords.clear();
+
+        int count = 0;
+        // submitButton.setEnabled(true);
+        for (int buttonID : buttonIDs) {
+            Button button = view.findViewById(buttonID);
+            button.setEnabled(true);
+            button.setTextSize(textSize);
+            button.setTextColor(mActivity.getColor(R.color.textcolor));
+            button.setOnClickListener(view1 -> {
+                if (selected.contains(button)) {
+                    selected.remove(button);
+                    button.setBackgroundColor(Color.parseColor(buttonColor));
+                    button.setTextColor(Color.parseColor(textColor));
+                } else {
+                    if (selected.size() < 4) {
+                        selected.add(button);
+                        button.setBackgroundColor(Color.parseColor(selectedButtonColor));
+                        button.setTextColor(Color.parseColor(selectedTextColor));
+                    }
+                }
+                showLetters.setText(fillInBlanks(selectedToString()));
+
+                if (arrayContains(selectedToString()) && !listContains(selectedToString())) {
+                    confirmOrDenyWords();
+                }
+            });
+            buttonList[count] = button;
+            count++;
+        }
+
+        assignButtonLetters();
+    }
+
+    public String fillInBlanks(String s) {
+        String returnString = s;
+        for (int i = 0; i < 4 - s.length(); i++) {
+            returnString += "_" + " ";
+        }
+        return returnString;
     }
 
     public int chooseWords() {
@@ -172,7 +200,41 @@ public class GameFragment extends Fragment {
         super.onDestroy();
     }
 
+    public void wordButtons() {
+        final Button button = nextButton;
+        final Button button2 = backButton;
 
+        button.setOnClickListener(view1 -> {
+            if (currPosInList > wordList.size() - 1) currPosInList = wordList.size() - 1;
+            else if (currPosInList < wordList.size() - 1) currPosInList++;
+            initialText.setText(wordList.get(currPosInList));
+
+            if (currPosInList >= wordList.size() - 1) {
+                button2.setEnabled(true);
+                button.setEnabled(false);
+                // button.setBackgroundColor(Color.parseColor());
+            } else {
+                button.setEnabled(true);
+            }
+        });
+
+        button2.setOnClickListener(view1 -> {
+            if (currPosInList >= 1) currPosInList--;
+            initialText.setText(wordList.get(currPosInList));
+
+            if (currPosInList == 0) {
+                button.setEnabled(true);
+                button2.setEnabled(false);
+            } else {
+                button2.setEnabled(true);
+            }
+        });
+
+        if (wordList.size() == 1) {
+            nextButton.setEnabled(false);
+            backButton.setEnabled(false);
+        }
+    }
 
     public void updateScoreBoard() {
         String scoreString = "Points: " + numPoints;
@@ -188,75 +250,8 @@ public class GameFragment extends Fragment {
         selectedButtonColor = cols[1]; // light blue
         textColor = cols[2];
         selectedTextColor = cols[3]; // navy blue
-        submitButton.setTextColor(Color.parseColor(cols[4]));
-        submitButton.setBackgroundColor(Color.parseColor(cols[5]));
         scoreBoard.setTextColor(Color.parseColor(cols[6]));
         scoreBoard.setBackgroundColor(Color.parseColor(cols[7]));
-    }
-
-    public void completeReset(View view) {
-        // updateScoreBoard();
-        // updateColors();
-
-       initialText.setTextSize(26);
-       initialText.setText("Words to Find: \n");
-
-        for (int k = 0; k < wordList.size(); k++) {
-            initialText.append("\n" + wordList.get(k));
-        }
-        initialText.append("\n");
-
-        foundWords.clear();
-
-        int count = 0;
-        submitButton.setEnabled(true);
-        int[] buttonIDs;
-
-        /*
-
-        if (level.equals("Easy")) {
-            buttonIDs = buttonIDsEasy;
-            for (int buttonID : buttonIDsMedAndHard) {
-                Button b = view.findViewById(buttonID);
-                b.setVisibility(View.GONE);
-            }
-        } else {
-            buttonIDs = buttonIDsMedAndHard;
-            for (int buttonID : buttonIDsEasy) {
-                Button b = view.findViewById(buttonID);
-                b.setVisibility(View.GONE);
-            }
-        }
-
-
-
-         */
-
-
-        for (int buttonID : buttonIDsEasy) {
-            Button button = view.findViewById(buttonID);
-            button.setEnabled(true);
-            button.setTextSize(textSize);
-            button.setTextColor(mActivity.getColor(R.color.textcolor));
-            button.setOnClickListener(view1 -> {
-                if (selected.contains(button)) {
-                    selected.remove(button);
-                    button.setBackgroundColor(Color.parseColor(buttonColor));
-                    button.setTextColor(Color.parseColor(textColor));
-                } else {
-                    button.setBackgroundColor(Color.parseColor(selectedButtonColor));
-                    button.setTextColor(Color.parseColor(selectedTextColor));
-                    selected.add(button);
-                }
-            });
-            buttonList[count] = button;
-            count++;
-        }
-
-        buttonList = buttonListEasy;
-
-        buttonList = assignButtonLetters();
-
     }
 
     public void playAgain() {
@@ -264,34 +259,38 @@ public class GameFragment extends Fragment {
         getParentFragmentManager().beginTransaction().replace(R.id.container, new PlayAgainFragment()).commit();
     }
 
-    public void onClickSubmitButton() {
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String selectedString = selectedToString();
-                if (selected.size() == 0) Toast.makeText(view.getContext(), "You've selected nothing!" , Toast.LENGTH_SHORT).show();
-                else if (arrayContains(selectedString) && !listContains(selectedString)) {
-                    Toast.makeText(view.getContext(), "Congrats, you found " + selectedString + "! 20 points!", Toast.LENGTH_SHORT).show();
-                    foundWords.add(selectedString);
-                    congratsMessage(selectedString, false);
-                } else if (listContains(selectedString)) Toast.makeText(view.getContext(), "You've already found the word " + selectedString + "!", Toast.LENGTH_SHORT).show();
-                else Toast.makeText(view.getContext(), "Sorry, " + selectedString + " isn't correct.", Toast.LENGTH_SHORT).show();
-                selected.clear();
-                // resets the button colors
-                buttonList = resetButtons();
-
-                if (foundWords.size() == wordList.size()) congratsMessage(selectedString, true);
+    public void confirmOrDenyWords() {
+        String selectedString = selectedToString();
+        showLetters.setText("Super gemacht!");
+        if (arrayContains(selectedString) && !listContains(selectedString)) {
+            foundWords.add(selectedString);
+            if (wordList.get(currPosInList).equals(selectedString)) {
+                if (currPosInList == 0 && wordList.size() > 1) {
+                    currPosInList++;
+                    initialText.setText(wordList.get(currPosInList));
+                    currPosInList--;
+                } else if (currPosInList == wordList.size() - 1 && wordList.size() > 1) {
+                    currPosInList--;
+                    initialText.setText(wordList.get(currPosInList));
+                } else {
+                    currPosInList = 0;
+                    initialText.setText(wordList.get(currPosInList));
+                }
             }
-        });
+
+            congratsMessage(false);
+        }
+        selected.clear();
+        resetButtons();
+
+        if (foundWords.size() == numWords) congratsMessage(true);
     }
 
-    public Button[] resetButtons() {
+    public void resetButtons() {
         for (Button b : buttonList) {
             b.setBackgroundColor(Color.parseColor(buttonColor));
             b.setTextColor(Color.parseColor(textColor));
         }
-
-        return buttonList;
     }
 
     public void updateScoreboard() {
@@ -299,20 +298,11 @@ public class GameFragment extends Fragment {
         scoreBoard.setText(scoreString);
     }
 
-    public void congratsMessage(String selectedString, boolean complete) {
+    public void congratsMessage(boolean complete) {
         numPoints += 20;
         updateScoreboard();
         if (!complete) {
-            // set text to the words that weren't found yet
-            String notFound = "";
-            for (String s : wordList) {
-                if (!listContains(s)) notFound += "\n" + s;
-                else notFound += "\n";
-            }
-            // initialText.setText("\nCongrats, you found: " + selectedString + ". 20 points gained!");
-            initialText.setText("Words to Find: \n" + notFound);
-            if (shiftWords) buttonList = assignButtonLetters();
-
+            if (shiftWords) assignButtonLetters();
         } else {
             initialText.setTextSize(26);
             numGames += 1;
@@ -320,7 +310,7 @@ public class GameFragment extends Fragment {
             playAgain();
         }
     }
-    public Button[] assignButtonLetters() {
+    public void assignButtonLetters() {
         ArrayList<String> letterList = new ArrayList<String>();
         letterList.add(wordList.get(0));
         for (int k = 1; k < wordList.size(); k++) {
@@ -343,9 +333,8 @@ public class GameFragment extends Fragment {
             buttonList[j].setText(wordString.substring(j, j + 1));
         }
 
-        buttonList = resetButtons();
 
-        return buttonList;
+        resetButtons();
     }
 
     public String shuffler(String string) {
@@ -359,16 +348,6 @@ public class GameFragment extends Fragment {
             shuffledString.append(c);
 
         return shuffledString.toString();
-    }
-
-
-    public String join(String[] arr, String joinCharacter) {
-        String str = "";
-        for (int i = 0; i < arr.length; i++) {
-            str = str + arr[i] + joinCharacter;
-        }
-
-        return str;
     }
 
     public String joinArrayList(ArrayList<String> arrList, String joinCharacter) {
@@ -410,18 +389,21 @@ public class GameFragment extends Fragment {
 
     public void easyLevel() {
         buttonList = buttonListEasy;
+        buttonIDs = buttonIDsEasy;
         numWords = 2;
         lettersUpperBound = 14;
     }
 
     public void mediumLevel() {
         buttonList = buttonListMedOrHard;
+        buttonIDs = buttonIDsMedAndHard;
         numWords = 3;
         lettersUpperBound = 22;
     }
 
     public void hardLevel() {
         buttonList = buttonListMedOrHard;
+        buttonIDs = buttonIDsMedAndHard;
         numWords = 3;
         lettersUpperBound = 22;
     }

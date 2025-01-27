@@ -17,21 +17,82 @@
         android:layout_margin="30dp"
         android:text="Points: "
         android:padding="15dp"
+        android:textColor="@color/navy"
         android:textAlignment="center"
         android:textSize="22dp" />
 
-    <TextView
-        android:id="@+id/initialTextEasy"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="Words to find:"
-        android:textColor="@color/navy"
-        android:textSize="26dp"
-        android:textAlignment="center"/>
+        android:orientation="horizontal"
+        android:layout_margin="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/backButtonEasy"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/leftarrowimage"
+                android:backgroundTint="@color/darkerblue"
+                android:textColor="@color/bluewhite" />
+
+            <TextView
+                android:id="@+id/backLabel"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/navy"
+                android:text="Previös" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/initialTextEasy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="Words to find:"
+            android:textAlignment="center"
+            android:textColor="@color/navy"
+            android:textSize="26dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/nextButtonEasy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/rightarrowimage"
+                android:backgroundTint="@color/darkerblue"
+                android:textColor="@color/bluewhite" />
+
+            <TextView
+                android:id="@+id/nextLabel"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/navy"
+                android:text="Nächste"/>
+        </LinearLayout>
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/showLetters"
+        android:id="@+id/showLettersEasy"
         android:textColor="@color/darkerblue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -4,33 +4,104 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center_vertical"
     android:background="@color/bluewhite">
 
     <TextView
-        android:id="@+id/initialText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="Words to find:"
-        android:textColor="@color/navy"
-        android:textSize="26dp"
-        android:textAlignment="center"/>
-
-    <TextView
         android:id="@+id/scoreBoard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/lavender"
-        android:layout_margin="20dp"
+        android:layout_margin="30dp"
         android:text="Points: "
-        android:padding="20dp"
-        android:gravity="center_vertical"
+        android:textColor="@color/navy"
+        android:padding="15dp"
         android:textAlignment="center"
-        android:textSize="32dp" />
+        android:textSize="22dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/leftarrowimage"
+                android:backgroundTint="@color/darkerblue"
+                android:textColor="@color/bluewhite" />
+
+            <TextView
+                android:id="@+id/backLabel"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/navy"
+                android:text="Previös" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/initialText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="Words to find:"
+            android:textAlignment="center"
+            android:textColor="@color/navy"
+            android:textSize="26dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/nextButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/rightarrowimage"
+                android:backgroundTint="@color/darkerblue"
+                android:textColor="@color/bluewhite" />
+
+            <TextView
+                android:id="@+id/nextLabel"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/navy"
+                android:text="Nächste"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/showLetters"
+        android:textColor="@color/darkerblue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:textAlignment="center"
+        android:textSize="32dp"
+        android:background="@color/lavender"
+        android:layout_margin="20dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -208,13 +279,6 @@
             app:backgroundTint="@color/lavender"/>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        app:backgroundTint="@color/lavender"/>
 
     <LinearLayout
         android:layout_width="match_parent"

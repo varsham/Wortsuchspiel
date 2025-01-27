@@ -41,11 +41,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button button = findViewById(id);
         getLevel = button.getText().toString();
 
-        // getSupportFragmentManager().beginTransaction().replace(R.id.container, new GameFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new GameFragment()).commit();
 
+
+        /*
         if (getLevel.equals("Easy")) getSupportFragmentManager().beginTransaction().replace(R.id.container, new EasyFragment()).commit();
         else if (getLevel.equals("Medium")) getSupportFragmentManager().beginTransaction().replace(R.id.container, new MediumFragment()).commit();
         else if (getLevel.equals("Hard")) getSupportFragmentManager().beginTransaction().replace(R.id.container, new HardFragment()).commit();
+
+
+         */
 
         // textView.setText(getLevel);
         textView.setVisibility(View.GONE);
