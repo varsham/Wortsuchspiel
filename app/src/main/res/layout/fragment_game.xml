@@ -116,7 +116,7 @@
             android:layout_weight="1"
             android:layout_margin="10dp"
             android:onClick="clicked"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
@@ -143,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
     </LinearLayout>
@@ -160,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
@@ -169,7 +169,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
@@ -178,7 +178,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
@@ -187,7 +187,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
     </LinearLayout>
@@ -204,7 +204,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
@@ -213,7 +213,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
@@ -222,7 +222,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
@@ -231,7 +231,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
     </LinearLayout>
@@ -248,7 +248,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
@@ -257,7 +257,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
@@ -266,7 +266,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
@@ -275,7 +275,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="Button"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
     </LinearLayout>
@@ -287,43 +287,48 @@
         android:padding="5dp">
 
         <Button
-            android:id="@+id/button17"
+            android:id="@+id/button1_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
-            android:id="@+id/button18"
+            android:id="@+id/button1_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
-            android:id="@+id/button19"
+            android:id="@+id/button1_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
-            android:id="@+id/button20"
+            android:id="@+id/button1_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
         <Button
-            android:id="@+id/button21"
+            android:id="@+id/button1_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="10dp"
+            android:text=" "
             app:backgroundTint="@color/lavender"/>
 
     </LinearLayout>
@@ -335,43 +340,48 @@
         android:padding="5dp">
 
         <Button
-            android:id="@+id/button22"
+            android:id="@+id/button1_6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button23"
+            android:id="@+id/button1_7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button24"
+            android:id="@+id/button1_8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button25"
+            android:id="@+id/button1_9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button26"
+            android:id="@+id/button1_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
     </LinearLayout>
@@ -384,43 +394,48 @@
         android:padding="5dp">
 
         <Button
-            android:id="@+id/button27"
+            android:id="@+id/button1_11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button28"
+            android:id="@+id/button1_12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button29"
+            android:id="@+id/button1_13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button30"
+            android:id="@+id/button1_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button31"
+            android:id="@+id/button1_15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
     </LinearLayout>
@@ -433,43 +448,48 @@
         android:padding="5dp">
 
         <Button
-            android:id="@+id/button32"
+            android:id="@+id/button1_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button33"
+            android:id="@+id/button1_17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button34"
+            android:id="@+id/button1_18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button35"
+            android:id="@+id/button1_19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button36"
+            android:id="@+id/button1_20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
     </LinearLayout>
@@ -481,43 +501,48 @@
         android:padding="5dp">
 
         <Button
-            android:id="@+id/button37"
+            android:id="@+id/button1_21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button38"
+            android:id="@+id/button1_22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button39"
+            android:id="@+id/button1_23"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button40"
+            android:id="@+id/button1_24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/button41"
+            android:id="@+id/button1_25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@color/lavender"
             android:layout_margin="10dp"
+            android:text=" "
             android:layout_weight="1"/>
 
     </LinearLayout>
